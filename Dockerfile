@@ -1,5 +1,10 @@
-# Imagem base
-FROM node:alpine
-COPY . /app
+FROM node:12-alpine
 WORKDIR /app
-CMD node app.js
+COPY . .
+
+# Install dependencies
+RUN apk add --no-cache python2 g++ make
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+
+EXPOSE 3000
